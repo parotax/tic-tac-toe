@@ -1,4 +1,4 @@
-import "./styles.css"
+import "./styles.css";
 
 const App = () => {
   return (
@@ -13,7 +13,7 @@ const App = () => {
       <div className="bottom-mid-square"></div>
       <div className="bottom-right-square"></div>
     </div>
-  )
-}
+  );
+};
 
 export default App;
