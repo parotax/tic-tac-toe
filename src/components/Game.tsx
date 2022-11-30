@@ -1,8 +1,14 @@
 import { useState } from "react";
 import "../styles.css";
 
+const useForceUpdate = () => {
+  const [value, setValue] = useState(0);
+  return () => setValue((value) => value + 1);
+};
+
 const Game = () => {
   const [turn, setTurn] = useState("Player");
+  const forceUpdate = useForceUpdate();
   const [board, setBoard] = useState([
     [0, 0, 0],
     [0, 0, 0],
@@ -72,6 +78,7 @@ const Game = () => {
   const handleClick = (tile: number) => {
     if (!playerTurn(tile)) return;
     computerTurn();
+    forceUpdate();
   };
 
   return (
