@@ -3,11 +3,11 @@ import "../styles.css";
 
 const Game = () => {
   const [turn, setTurn] = useState("Player");
-  const board = [
+  const [board, setBoard] = useState([
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0],
-  ];
+  ]);
 
   const playerTurn = (tile: number) => {
     if (turn !== "Player") return;
@@ -16,7 +16,9 @@ const Game = () => {
     const y = tile % 3;
     console.log(x, y);
     if (board[x][y] === 0) {
-      board[x][y] = 1;
+      const newBoard = board;
+      newBoard[x][y] = 1;
+      setBoard(newBoard);
     } else {
       alert("That tile is already taken!");
       return false;
@@ -53,7 +55,9 @@ const Game = () => {
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
           if (board[i][j] === 0 && loseRow === i) {
-            board[i][j] = 2;
+            const newBoard = board;
+            newBoard[i][j] = 2;
+            setBoard(newBoard);
             return;
           }
           if (board[j][i] === 0 && loseCol === i) {
