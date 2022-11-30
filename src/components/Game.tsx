@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../styles.css";
 
 const useForceUpdate = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(0); // eslint-disable-line @typescript-eslint/no-unused-vars
   return () => setValue((value) => value + 1);
 };
 
