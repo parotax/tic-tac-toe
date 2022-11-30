@@ -87,15 +87,33 @@ const Game = () => {
       <button onClick={() => setTurn("Player")}>start</button>
       <button onClick={() => console.log(board)}>board</button>
       <div className="board">
-        <div className="square" onClick={() => handleClick(0)}></div>
-        <div className="square" onClick={() => handleClick(1)}></div>
-        <div className="square" onClick={() => handleClick(2)}></div>
-        <div className="square" onClick={() => handleClick(3)}></div>
-        <div className="square" onClick={() => handleClick(4)}></div>
-        <div className="square" onClick={() => handleClick(5)}></div>
-        <div className="square" onClick={() => handleClick(6)}></div>
-        <div className="square" onClick={() => handleClick(7)}></div>
-        <div className="square" onClick={() => handleClick(8)}></div>
+        <div className="square" onClick={() => handleClick(0)}>
+          <h1>{board[0][0] === 0 ? "" : board[0][0] === 1 ? "X" : "Y"}</h1>
+        </div>
+        <div className="square" onClick={() => handleClick(1)}>
+          <h1>{board[0][1] === 0 ? "" : board[0][1] === 1 ? "X" : "Y"}</h1>
+        </div>
+        <div className="square" onClick={() => handleClick(2)}>
+          <h1>{board[0][2] === 0 ? "" : board[0][2] === 1 ? "X" : "Y"}</h1>
+        </div>
+        <div className="square" onClick={() => handleClick(3)}>
+          <h1>{board[1][0] === 0 ? "" : board[1][0] === 1 ? "X" : "Y"}</h1>
+        </div>
+        <div className="square" onClick={() => handleClick(4)}>
+          <h1>{board[1][1] === 0 ? "" : board[1][1] === 1 ? "X" : "Y"}</h1>
+        </div>
+        <div className="square" onClick={() => handleClick(5)}>
+          <h1>{board[1][2] === 0 ? "" : board[1][2] === 1 ? "X" : "Y"}</h1>
+        </div>
+        <div className="square" onClick={() => handleClick(6)}>
+          <h1>{board[2][0] === 0 ? "" : board[2][0] === 1 ? "X" : "Y"}</h1>
+        </div>
+        <div className="square" onClick={() => handleClick(7)}>
+          <h1>{board[2][1] === 0 ? "" : board[2][1] === 1 ? "X" : "Y"}</h1>
+        </div>
+        <div className="square" onClick={() => handleClick(8)}>
+          <h1>{board[2][2] === 0 ? "" : board[2][2] === 1 ? "X" : "Y"}</h1>
+        </div>
       </div>
     </>
   );

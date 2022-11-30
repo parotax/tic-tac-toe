@@ -3,6 +3,12 @@ body {
   background-color: white;
 }
 
+h1 {
+  margin: 0;
+  font-size: 20vh;
+  text-align: center;
+}
+
 .content {
   height: 100vh;
   display: flex;
@@ -20,7 +26,7 @@ body {
 
 .square {
   flex: 0 0 32%;
-  height: 100%px;
+  height: 32%;
   margin-bottom: 5px;
   background-color: gray;
 }
