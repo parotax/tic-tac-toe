@@ -9,7 +9,7 @@ const Game = () => {
     [0, 0, 0],
   ];
 
-  const playerTurn = async (tile: number) => {
+  const playerTurn = (tile: number) => {
     if (turn !== "Player") return;
 
     const x = Math.floor(tile / 3);
@@ -25,13 +25,46 @@ const Game = () => {
   };
 
   const computerTurn = () => {
-    if (board[2][2] === 0) {
-      board[2][2] = 2;
+    let loseRow = null;
+    let loseCol = null;
+
+    for (let i = 0; i < 3; i++) {
+      let x = 0;
+      let y = 0;
+      for (let j = 0; j < 3; j++) {
+        if (board[i][j] === 1) x++;
+        else if (board[i][j] === 2) x--;
+        if (board[j][i] === 1) y++;
+        else if (board[j][i] === 2) y--;
+      }
+      if (x >= 2) {
+        loseRow = i;
+        break;
+      }
+      if (y >= 2) {
+        loseCol = i;
+        break;
+      }
     }
+
     setTurn("Player");
+    if (loseRow !== null || loseCol !== null) {
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          if (board[i][j] === 0 && loseRow === i) {
+            board[i][j] = 2;
+            return;
+          }
+          if (board[j][i] === 0 && loseCol === i) {
+            board[j][i] = 2;
+            return;
+          }
+        }
+      }
+    }
   };
 
-  const handleClick = async (tile: number) => {
+  const handleClick = (tile: number) => {
     playerTurn(tile);
     computerTurn();
   };
