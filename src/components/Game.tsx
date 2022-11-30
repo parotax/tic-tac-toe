@@ -19,9 +19,10 @@ const Game = () => {
       board[x][y] = 1;
     } else {
       alert("That tile is already taken!");
-      return;
+      return false;
     }
     setTurn("Computer");
+    return true;
   };
 
   const computerTurn = () => {
@@ -65,7 +66,7 @@ const Game = () => {
   };
 
   const handleClick = (tile: number) => {
-    playerTurn(tile);
+    if (!playerTurn(tile)) return;
     computerTurn();
   };
 
