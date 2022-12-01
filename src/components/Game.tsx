@@ -55,8 +55,31 @@ const Game = () => {
         break;
       }
     }
+    let diagonal1 = 0;
+    let diagonal2 = 0;
+    for (let i = 0; i < 3; i++) {
+      if (board[i][i] === 1) diagonal1++;
+      else if (board[i][i] === 2) diagonal1--;
+      if (board[2 - i][i] === 1) diagonal2++;
+      else if (board[2 - i][i] === 2) diagonal2--;
+    }
+    if (diagonal1 === 2 || diagonal2 === 2) {
+      for (let i = 0; i < 3; i++) {
+        if (board[i][i] === 0 && diagonal1 === 2) {
+          const newBoard = board;
+          newBoard[i][i] = 2;
+          setBoard(newBoard);
+          return;
+        }
+        if (board[2 - i][i] === 0 && diagonal2 === 2) {
+          const newBoard = board;
+          newBoard[2 - i][i] = 2;
+          setBoard(newBoard);
+          return;
+        }
+      }
+    }
 
-    setTurn("Player");
     if (loseRow !== null || loseCol !== null) {
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
@@ -78,6 +101,7 @@ const Game = () => {
   const handleClick = (tile: number) => {
     if (!playerTurn(tile)) return;
     computerTurn();
+    setTurn("Player");
     forceUpdate();
   };
 
