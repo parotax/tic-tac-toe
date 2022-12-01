@@ -65,6 +65,11 @@ const ComputerLogic = (props: Props) => {
     }
   }
 
+  if (props.board[1][1] === 0) {
+    props.board[1][1] = 2;
+    return props.board;
+  }
+
   let x = [];
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
