@@ -1,4 +1,5 @@
 import ComputerLogic from "./ComputerLogic";
+import CheckWin from "./CheckWin";
 import { useState } from "react";
 import "../styles.css";
 
@@ -18,23 +19,33 @@ const Game = () => {
   const playerTurn = (tile: number) => {
     const x = Math.floor(tile / 3);
     const y = tile % 3;
-    console.log(x, y);
     if (board[x][y] === 0) {
       const newBoard = board;
       newBoard[x][y] = 1;
-      setBoard(newBoard);
+      Promise.resolve()
+        .then(() => setBoard(newBoard))
+        .then(() => forceUpdate())
+        .then(() => checkWin());
+      return true;
     } else {
       alert("That tile is already taken!");
       return false;
     }
-    return true;
+  };
+
+  const checkWin = () => {
+    let winner = CheckWin({ board });
+    if (winner === false) return;
+    alert(winner);
   };
 
   const handleClick = (tile: number) => {
-    if (!playerTurn(tile)) return;
-
-    setBoard(ComputerLogic({ board }));
-    forceUpdate();
+    const x = playerTurn(tile);
+    if (!x) return;
+    Promise.resolve()
+      .then(() => setBoard(ComputerLogic({ board })))
+      .then(() => forceUpdate())
+      .then(() => checkWin());
   };
 
   return (
