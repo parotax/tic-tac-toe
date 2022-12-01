@@ -1,3 +1,4 @@
+import ComputerLogic from "./ComputerLogic";
 import { useState } from "react";
 import "../styles.css";
 
@@ -33,83 +34,17 @@ const Game = () => {
     return true;
   };
 
-  const computerTurn = () => {
-    let loseRow = null;
-    let loseCol = null;
-
-    for (let i = 0; i < 3; i++) {
-      let x = 0;
-      let y = 0;
-      for (let j = 0; j < 3; j++) {
-        if (board[i][j] === 1) x++;
-        else if (board[i][j] === 2) x--;
-        if (board[j][i] === 1) y++;
-        else if (board[j][i] === 2) y--;
-      }
-      if (x >= 2) {
-        loseRow = i;
-        break;
-      }
-      if (y >= 2) {
-        loseCol = i;
-        break;
-      }
-    }
-    let diagonal1 = 0;
-    let diagonal2 = 0;
-    for (let i = 0; i < 3; i++) {
-      if (board[i][i] === 1) diagonal1++;
-      else if (board[i][i] === 2) diagonal1--;
-      if (board[2 - i][i] === 1) diagonal2++;
-      else if (board[2 - i][i] === 2) diagonal2--;
-    }
-    if (diagonal1 === 2 || diagonal2 === 2) {
-      for (let i = 0; i < 3; i++) {
-        if (board[i][i] === 0 && diagonal1 === 2) {
-          const newBoard = board;
-          newBoard[i][i] = 2;
-          setBoard(newBoard);
-          return;
-        }
-        if (board[2 - i][i] === 0 && diagonal2 === 2) {
-          const newBoard = board;
-          newBoard[2 - i][i] = 2;
-          setBoard(newBoard);
-          return;
-        }
-      }
-    }
-
-    if (loseRow !== null || loseCol !== null) {
-      for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-          if (board[i][j] === 0 && loseRow === i) {
-            const newBoard = board;
-            newBoard[i][j] = 2;
-            setBoard(newBoard);
-            return;
-          }
-          if (board[j][i] === 0 && loseCol === i) {
-            board[j][i] = 2;
-            return;
-          }
-        }
-      }
-    }
-  };
-
   const handleClick = (tile: number) => {
     if (!playerTurn(tile)) return;
-    computerTurn();
     setTurn("Player");
+
+    setBoard(ComputerLogic({ board }));
     forceUpdate();
   };
 
   return (
     <>
       <h2>{turn === "Player" ? "Player's turn" : "Computer's turn"}</h2>
-      <button onClick={() => setTurn("Player")}>start</button>
-      <button onClick={() => console.log(board)}>board</button>
       <div className="board">
         <div className="square" onClick={() => handleClick(0)}>
           <h1>{board[0][0] === 0 ? "" : board[0][0] === 1 ? "X" : "Y"}</h1>
