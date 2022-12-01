@@ -5,6 +5,8 @@ interface Props {
 const ComputerLogic = (props: Props) => {
   let loseRow = null;
   let loseCol = null;
+  let winRow = null;
+  let winCol = null;
 
   for (let i = 0; i < 3; i++) {
     let x = 0;
@@ -14,6 +16,14 @@ const ComputerLogic = (props: Props) => {
       else if (props.board[i][j] === 2) x--;
       if (props.board[j][i] === 1) y++;
       else if (props.board[j][i] === 2) y--;
+    }
+    if (x === -2) {
+      winRow = i;
+      break;
+    }
+    if (y === -2) {
+      winCol = i;
+      break;
     }
     if (x === 2) {
       loseRow = i;
@@ -32,6 +42,37 @@ const ComputerLogic = (props: Props) => {
     else if (props.board[i][i] === 2) diagonal1--;
     if (props.board[2 - i][i] === 1) diagonal2++;
     else if (props.board[2 - i][i] === 2) diagonal2--;
+  }
+
+  if (winRow !== null) {
+    for (let i = 0; i < 3; i++) {
+      if (props.board[winRow][i] === 0) {
+        props.board[winRow][i] = 2;
+        return props.board;
+      }
+    }
+  }
+
+  if (winCol !== null) {
+    for (let i = 0; i < 3; i++) {
+      if (props.board[i][winCol] === 0) {
+        props.board[i][winCol] = 2;
+        return props.board;
+      }
+    }
+  }
+
+  if (diagonal1 === -2 || diagonal2 === -2) {
+    for (let i = 0; i < 3; i++) {
+      if (props.board[i][i] === 0 && diagonal1 === -2) {
+        props.board[i][i] = 2;
+        return props.board;
+      }
+      if (props.board[2 - i][i] === 0 && diagonal2 === -2) {
+        props.board[2 - i][i] = 2;
+        return props.board;
+      }
+    }
   }
 
   if (diagonal1 === 2 || diagonal2 === 2) {
@@ -76,8 +117,8 @@ const ComputerLogic = (props: Props) => {
       if (props.board[i][j] === 0) x.push([i, j]);
     }
   }
-  const z = Math.floor(Math.random() * x.length);
-  props.board[x[z][0]][x[z][1]] = 2;
+  const random = Math.floor(Math.random() * x.length);
+  props.board[x[random][0]][x[random][1]] = 2;
 
   return props.board;
 };
