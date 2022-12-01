@@ -8,7 +8,6 @@ const useForceUpdate = () => {
 };
 
 const Game = () => {
-  const [turn, setTurn] = useState("Player");
   const forceUpdate = useForceUpdate();
   const [board, setBoard] = useState([
     [0, 0, 0],
@@ -17,8 +16,6 @@ const Game = () => {
   ]);
 
   const playerTurn = (tile: number) => {
-    if (turn !== "Player") return;
-
     const x = Math.floor(tile / 3);
     const y = tile % 3;
     console.log(x, y);
@@ -30,13 +27,11 @@ const Game = () => {
       alert("That tile is already taken!");
       return false;
     }
-    setTurn("Computer");
     return true;
   };
 
   const handleClick = (tile: number) => {
     if (!playerTurn(tile)) return;
-    setTurn("Player");
 
     setBoard(ComputerLogic({ board }));
     forceUpdate();
@@ -44,7 +39,6 @@ const Game = () => {
 
   return (
     <>
-      <h2>{turn === "Player" ? "Player's turn" : "Computer's turn"}</h2>
       <div className="board">
         <div className="square" onClick={() => handleClick(0)}>
           <h1>{board[0][0] === 0 ? "" : board[0][0] === 1 ? "X" : "Y"}</h1>

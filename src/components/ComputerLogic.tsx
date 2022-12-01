@@ -64,6 +64,16 @@ const ComputerLogic = (props: Props) => {
       }
     }
   }
+
+  let x = [];
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (props.board[i][j] === 0) x.push([i, j]);
+    }
+  }
+  const z = Math.floor(Math.random() * x.length);
+  props.board[x[z][0]][x[z][1]] = 2;
+
   return props.board;
 };
 
