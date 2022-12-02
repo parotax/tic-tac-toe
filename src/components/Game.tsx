@@ -22,30 +22,26 @@ const Game = () => {
     if (board[x][y] === 0) {
       const newBoard = board;
       newBoard[x][y] = 1;
-      Promise.resolve()
-        .then(() => setBoard(newBoard))
-        .then(() => forceUpdate())
-        .then(() => checkWin());
-      return true;
-    } else {
-      alert("That tile is already taken!");
-      return false;
-    }
+      setBoard(newBoard);
+      const won = checkWin();
+      console.log(won)
+      if (!won) return true;
+    } else alert("That tile is already taken!");
+    return false;
   };
 
   const checkWin = () => {
     let winner = CheckWin({ board });
-    if (winner === false) return;
+    forceUpdate();
+    if (winner === false) return false;
     alert(winner);
+    return true
   };
 
   const handleClick = (tile: number) => {
-    const x = playerTurn(tile);
-    if (!x) return;
-    Promise.resolve()
-      .then(() => setBoard(ComputerLogic({ board })))
-      .then(() => forceUpdate())
-      .then(() => checkWin());
+    if (!playerTurn(tile)) return;
+    setBoard(ComputerLogic({ board }));
+    checkWin();
   };
 
   return (
