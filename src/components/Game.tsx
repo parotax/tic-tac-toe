@@ -10,6 +10,8 @@ const useForceUpdate = () => {
 
 const Game = () => {
   const forceUpdate = useForceUpdate();
+  const [gameOn, setGameOn] = useState(false);
+  const [lastWinner, setLastWinner] = useState("None");
   const [board, setBoard] = useState([
     [0, 0, 0],
     [0, 0, 0],
@@ -20,25 +22,51 @@ const Game = () => {
     let winner = CheckWin({ board });
     forceUpdate();
     if (winner === false) return false;
-    alert(winner);
+    setLastWinner(winner);
+    setGameOn(false);
     return true;
   };
 
   const handleTurn = (tile: number) => {
     const x = Math.floor(tile / 3);
     const y = tile % 3;
+    if (!gameOn) return;
     if (board[x][y] === 0) {
       const newBoard = board;
       newBoard[x][y] = 1;
       setBoard(newBoard);
-      if (!checkWin()) return;
+      if (checkWin()) return;
       setBoard(ComputerLogic({ board }));
       checkWin();
     } else alert("That tile is already taken!");
   };
 
+  const startGame = () => {
+    setGameOn(true);
+    setBoard([
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ]);
+  };
+
   return (
     <>
+      <p>
+        {gameOn ? (
+          "Game on!"
+        ) : (
+          <button onClick={() => startGame()}>
+            <p>
+              {lastWinner === "None"
+                ? "Click to play"
+                : lastWinner === "Tie"
+                ? "Tie! Click to play again!"
+                : `${lastWinner} won! Click to play again`}
+            </p>
+          </button>
+        )}
+      </p>
       <div className="board">
         <div className="square" onClick={() => handleTurn(0)}>
           <h1>{board[0][0] === 0 ? "" : board[0][0] === 1 ? "X" : "Y"}</h1>
