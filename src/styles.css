@@ -27,6 +27,5 @@ h1 {
 .square {
   flex: 0 0 32%;
   height: 32%;
-  margin-bottom: 5px;
   background-color: gray;
 }
