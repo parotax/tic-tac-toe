@@ -2,6 +2,7 @@ import ComputerLogic from "./ComputerLogic";
 import CheckWin from "./CheckWin";
 import { useState } from "react";
 import "../styles.css";
+import Square from "./Square";
 
 const useForceUpdate = () => {
   const [value, setValue] = useState(0); // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -68,33 +69,15 @@ const Game = () => {
         )}
       </p>
       <div className="board">
-        <div className="square" onClick={() => handleTurn(0)}>
-          <h1>{board[0][0] === 0 ? "" : board[0][0] === 1 ? "X" : "Y"}</h1>
-        </div>
-        <div className="square" onClick={() => handleTurn(1)}>
-          <h1>{board[0][1] === 0 ? "" : board[0][1] === 1 ? "X" : "Y"}</h1>
-        </div>
-        <div className="square" onClick={() => handleTurn(2)}>
-          <h1>{board[0][2] === 0 ? "" : board[0][2] === 1 ? "X" : "Y"}</h1>
-        </div>
-        <div className="square" onClick={() => handleTurn(3)}>
-          <h1>{board[1][0] === 0 ? "" : board[1][0] === 1 ? "X" : "Y"}</h1>
-        </div>
-        <div className="square" onClick={() => handleTurn(4)}>
-          <h1>{board[1][1] === 0 ? "" : board[1][1] === 1 ? "X" : "Y"}</h1>
-        </div>
-        <div className="square" onClick={() => handleTurn(5)}>
-          <h1>{board[1][2] === 0 ? "" : board[1][2] === 1 ? "X" : "Y"}</h1>
-        </div>
-        <div className="square" onClick={() => handleTurn(6)}>
-          <h1>{board[2][0] === 0 ? "" : board[2][0] === 1 ? "X" : "Y"}</h1>
-        </div>
-        <div className="square" onClick={() => handleTurn(7)}>
-          <h1>{board[2][1] === 0 ? "" : board[2][1] === 1 ? "X" : "Y"}</h1>
-        </div>
-        <div className="square" onClick={() => handleTurn(8)}>
-          <h1>{board[2][2] === 0 ? "" : board[2][2] === 1 ? "X" : "Y"}</h1>
-        </div>
+        <Square board={board} handleTurn={handleTurn} tile={0} />
+        <Square board={board} handleTurn={handleTurn} tile={1} />
+        <Square board={board} handleTurn={handleTurn} tile={2} />
+        <Square board={board} handleTurn={handleTurn} tile={3} />
+        <Square board={board} handleTurn={handleTurn} tile={4} />
+        <Square board={board} handleTurn={handleTurn} tile={5} />
+        <Square board={board} handleTurn={handleTurn} tile={6} />
+        <Square board={board} handleTurn={handleTurn} tile={7} />
+        <Square board={board} handleTurn={handleTurn} tile={8} />
       </div>
     </>
   );
