@@ -16,6 +16,13 @@ h1 {
   align-items: center;
 }
 
+.login-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30vh;
+}
+
 .board {
   width: min(80vh, 80vw);
   height: min(80vh, 80vw);

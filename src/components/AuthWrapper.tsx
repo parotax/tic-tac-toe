@@ -1,5 +1,6 @@
 import { ReactNode, useState } from "react";
-import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
+import { CredentialResponse } from "@react-oauth/google";
+import LoginPage from "./LoginPage";
 
 interface Props {
   children: ReactNode;
@@ -17,7 +18,7 @@ const AuthWrapper = (props: Props) => {
   };
 
   if (auth === undefined) {
-    return <GoogleLogin onSuccess={onSuccess} onError={onError} />;
+    return <LoginPage onSuccess={onSuccess} onError={onError} />;
   } else {
     return <>{props.children}</>;
   }
