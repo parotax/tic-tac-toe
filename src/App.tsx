@@ -1,5 +1,6 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import AuthWrapper from "./components/AuthWrapper";
+import PageWrapper from "./components/PageWrapper";
 import Game from "./components/Game";
 import "./styles.css";
 
@@ -11,11 +12,11 @@ const oAuthConf = {
 const App = () => {
   return (
     <GoogleOAuthProvider {...oAuthConf}>
-      <AuthWrapper>
-        <div className="content">
+      <PageWrapper>
+        <AuthWrapper>
           <Game />
-        </div>
-      </AuthWrapper>
+        </AuthWrapper>
+      </PageWrapper>
     </GoogleOAuthProvider>
   );
 };

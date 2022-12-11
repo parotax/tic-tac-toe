@@ -9,7 +9,7 @@ interface Props {
 const LoginPage = (props: Props) => {
   return (
     <div className="login-container">
-      <p style={{ fontSize: "xx-large" }}>Login via google below</p>
+      <p>Login via google below</p>
       <GoogleLogin onSuccess={props.onSuccess} onError={props.onError} />
     </div>
   );
