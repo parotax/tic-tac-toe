@@ -1,10 +1,12 @@
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import AuthContext from "./AuthContext";
 import "../styles.css";
 
 const PageWrapper = (props: any) => {
+  const location = useLocation();
+  console.log(location.pathname);
   const [auth, setAuth] = useState<string>();
 
   const onSuccess = (response: CredentialResponse) => {
@@ -27,9 +29,15 @@ const PageWrapper = (props: any) => {
         </div>
         <h6 className="header-child">Tic Tac Toe</h6>
         <div className="header-child">
-          <Link to="leaderboard">
-            <h6>Leaderboard</h6>
-          </Link>
+          {location.pathname === "/" ? (
+            <Link to="leaderboard">
+              <h6>Leaderboard</h6>
+            </Link>
+          ) : (
+            <Link to="/">
+              <h6>Home</h6>
+            </Link>
+          )}
         </div>
       </header>
       <div>{props.children}</div>
