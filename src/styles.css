@@ -13,20 +13,12 @@ p {
   font-size: x-large;
 }
 
-header {
-  position: absolute;
-  left: 0;
-  right: 0;
-  color: aqua;
-}
-
 h6 {
   margin: 0;
 }
 
-.header {
+header {
   display: flex;
-  justify-content: space-between;
   padding: 0 2vw;
   align-items: center;
   font-size: xx-large;
@@ -34,6 +26,21 @@ h6 {
   text-align: center;
   line-height: 13vh;
   background-color: blueviolet;
+  color: aqua;
+}
+
+.header-child {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header-child:first-child > div {
+  margin-right: auto;
+}
+
+.header-child:last-child > div {
+  margin-left: auto;
 }
 
 .content {

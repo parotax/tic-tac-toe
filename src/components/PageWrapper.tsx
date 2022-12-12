@@ -16,15 +16,19 @@ const PageWrapper = (props: any) => {
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
-      <div className="header">
-        <header>Tic Tac Toe</header>
-        {auth === undefined ? (
-          <GoogleLogin onSuccess={onSuccess} onError={onError} />
-        ) : (
-          <h6>Logged in</h6>
-        )}
-        <h6>Leaderboard</h6>
-      </div>
+      <header>
+        <div className="header-child">
+          {auth === undefined ? (
+            <GoogleLogin onSuccess={onSuccess} onError={onError} />
+          ) : (
+            <h6>Logged in</h6>
+          )}
+        </div>
+        <h6 className="header-child">Tic Tac Toe</h6>
+        <h6 className="header-child">
+          <div>Leaderboard</div>
+        </h6>
+      </header>
       <div>{props.children}</div>
     </AuthContext.Provider>
   );
