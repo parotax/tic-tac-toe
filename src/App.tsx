@@ -1,7 +1,10 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageWrapper from "./components/PageWrapper";
+import NoPage from "./components/NoPage";
 import Game from "./components/Game";
 import "./styles.css";
+import Leaderboard from "./components/Leaderboard";
 
 const oAuthConf = {
   clientId:
@@ -11,9 +14,15 @@ const oAuthConf = {
 const App = () => {
   return (
     <GoogleOAuthProvider {...oAuthConf}>
-      <PageWrapper>
-        <Game />
-      </PageWrapper>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<PageWrapper />}>
+            <Route index element={<Game />} />
+            <Route path="leaderboard" element={<Leaderboard />} />
+            <Route path="*" element={<NoPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </GoogleOAuthProvider>
   );
 };

@@ -1,4 +1,5 @@
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
+import { Outlet, Link } from "react-router-dom";
 import { useState } from "react";
 import AuthContext from "./AuthContext";
 import "../styles.css";
@@ -25,11 +26,14 @@ const PageWrapper = (props: any) => {
           )}
         </div>
         <h6 className="header-child">Tic Tac Toe</h6>
-        <h6 className="header-child">
-          <div>Leaderboard</div>
-        </h6>
+        <div className="header-child">
+          <Link to="leaderboard">
+            <h6>Leaderboard</h6>
+          </Link>
+        </div>
       </header>
       <div>{props.children}</div>
+      <Outlet />
     </AuthContext.Provider>
   );
 };

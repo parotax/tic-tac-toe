@@ -35,11 +35,11 @@ header {
   justify-content: center;
 }
 
-.header-child:first-child > div {
+.header-child:first-child > * {
   margin-right: auto;
 }
 
-.header-child:last-child > div {
+.header-child:last-child > * {
   margin-left: auto;
 }
 
