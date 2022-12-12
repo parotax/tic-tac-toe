@@ -9,17 +9,31 @@ h1 {
   text-align: center;
 }
 
+p {
+  font-size: x-large;
+}
+
 header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  color: aqua;
+}
+
+h6 {
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2vw;
+  align-items: center;
   font-size: xx-large;
   font-weight: bolder;
   text-align: center;
   line-height: 13vh;
   background-color: blueviolet;
-  color: aqua;
-}
-
-p {
-  font-size: x-large;
 }
 
 .content {
@@ -37,15 +51,18 @@ p {
 }
 
 .board {
-  width: min(80vh, 80vw);
-  height: min(80vh, 80vw);
+  width: min(70vh, 70vw);
+  height: min(70vh, 70vw);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  background-color: black;
 }
 
 .square {
   flex: 0 0 32%;
   height: 32%;
   background-color: gray;
+  margin-top: 2px;
+  cursor: pointer;
 }

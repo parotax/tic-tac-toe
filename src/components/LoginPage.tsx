@@ -1,16 +1,23 @@
+import { useContext } from "react";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
+import AuthContext from "./AuthContext";
 import "../styles.css";
 
-interface Props {
-  onSuccess: (response: CredentialResponse) => void;
-  onError: () => void;
-}
+const LoginPage = () => {
+  const { setAuth } = useContext(AuthContext);
 
-const LoginPage = (props: Props) => {
+  const onSuccess = (response: CredentialResponse) => {
+    if (response.credential !== undefined) setAuth(response.credential);
+  };
+
+  const onError = () => {
+    console.error("Login failed!");
+  };
+
   return (
     <div className="login-container">
       <p>Login via google below</p>
-      <GoogleLogin onSuccess={props.onSuccess} onError={props.onError} />
+      <GoogleLogin onSuccess={onSuccess} onError={onError} />
     </div>
   );
 };
