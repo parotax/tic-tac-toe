@@ -10,13 +10,37 @@ h1 {
 }
 
 p {
-  margin: 15px;
-  font-size: xx-large;
+  font-size: x-large;
+}
+
+h6 {
+  margin: 0;
 }
 
 header {
+  display: flex;
+  padding: 0 2vw;
+  align-items: center;
   font-size: xx-large;
   font-weight: bolder;
+  text-align: center;
+  line-height: 13vh;
+  background-color: blueviolet;
+  color: aqua;
+}
+
+.header-child {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header-child:first-child > * {
+  margin-right: auto;
+}
+
+.header-child:last-child > * {
+  margin-left: auto;
 }
 
 .content {
@@ -27,18 +51,28 @@ header {
   align-items: center;
 }
 
+.login-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20vh;
+}
+
 .board {
-  width: min(60vh, 60vw);
-  height: min(60vh, 60vw);
+  width: min(70vh, 70vw);
+  height: min(70vh, 70vw);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  background-color: black;
 }
 
 .square {
   flex: 0 0 32%;
   height: 32%;
   background-color: gray;
+  margin-top: 2px;
+  cursor: pointer;
 }
 
 .cell {

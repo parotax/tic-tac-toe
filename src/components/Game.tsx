@@ -1,8 +1,8 @@
+import { useState } from "react";
 import ComputerLogic from "./ComputerLogic";
 import CheckWin from "./CheckWin";
-import { useState } from "react";
-import "../styles.css";
 import Square from "./Square";
+import "../styles.css";
 
 const useForceUpdate = () => {
   const [value, setValue] = useState(0); // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -11,8 +11,7 @@ const useForceUpdate = () => {
 
 const Game = () => {
   const forceUpdate = useForceUpdate();
-  const [gameOn, setGameOn] = useState(false);
-  const [lastWinner, setLastWinner] = useState("None");
+  const [gameOn, setGameOn] = useState(true);
   const [board, setBoard] = useState([
     [0, 0, 0],
     [0, 0, 0],
@@ -23,7 +22,6 @@ const Game = () => {
     let winner = CheckWin({ board });
     forceUpdate();
     if (winner === false) return false;
-    setLastWinner(winner);
     setGameOn(false);
     return true;
   };
@@ -52,22 +50,14 @@ const Game = () => {
   };
 
   return (
-    <>
-      <p>
-        {gameOn ? (
-          "Game on!"
-        ) : (
-          <button onClick={() => startGame()}>
-            <p>
-              {lastWinner === "None"
-                ? "Click to play"
-                : lastWinner === "Tie"
-                ? "Tie! Click to play again!"
-                : `${lastWinner} won! Click to play again`}
-            </p>
-          </button>
-        )}
-      </p>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "85vh",
+      }}
+    >
       <div className="board">
         <Square board={board} handleTurn={handleTurn} tile={0} />
         <Square board={board} handleTurn={handleTurn} tile={1} />
@@ -79,7 +69,7 @@ const Game = () => {
         <Square board={board} handleTurn={handleTurn} tile={7} />
         <Square board={board} handleTurn={handleTurn} tile={8} />
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,4 +1,10 @@
+import { useContext } from "react";
+import AuthContext from "./AuthContext";
+import LoginPage from "./LoginPage";
+
 const Leaderboard = () => {
+  const { auth } = useContext(AuthContext);
+
   const data = [
     ["bao", 10],
     ["bao", 10],
@@ -12,6 +18,8 @@ const Leaderboard = () => {
     ["bao", 10],
   ];
   const colors = ["#d5d5d5", "#a9a9a9"];
+
+  if (auth === undefined) return <LoginPage />;
   return (
     <div>
       <div
