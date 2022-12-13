@@ -6,7 +6,6 @@ import "../styles.css";
 
 const PageWrapper = (props: any) => {
   const location = useLocation();
-  console.log(location.pathname);
   const [auth, setAuth] = useState<string>();
 
   const onSuccess = (response: CredentialResponse) => {

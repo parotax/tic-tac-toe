@@ -5,7 +5,7 @@ body {
 
 h1 {
   margin: 0;
-  font-size: min(20vh, 20vw);
+  font-size: min(16vh, 16vw);
   text-align: center;
 }
 
@@ -46,7 +46,8 @@ header {
 .content {
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -72,4 +73,9 @@ header {
   background-color: gray;
   margin-top: 2px;
   cursor: pointer;
+}
+
+.cell {
+  display: flex;
+  width: 60vw;
 }
