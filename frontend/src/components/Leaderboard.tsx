@@ -30,6 +30,7 @@ const Leaderboard = () => {
       {leaderboard.map((user: any, i) => (
         <div
           className="cell"
+          key={i}
           style={{
             backgroundColor: colors[i % colors.length],
           }}
