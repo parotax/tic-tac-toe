@@ -1,51 +1,54 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
+require("dotenv").config();
+const User = require("./models/user");
 
+const app = express();
 app.use(express.json());
 app.use(cors());
 
-let users = [
-  {
-    id: 2,
-    wins: 2,
-    name: "z",
-  },
-  {
-    id: 1,
-    wins: 5,
-    name: "y",
-  },
-  {
-    id: 3,
-    wins: 1,
-    name: "x",
-  },
-];
+const generateId = () => {
+  User.find({}).then((users) => {
+    const maxId = Math.max(...users.map((user) => user.id));
+    if (users.length === 0) return 1;
+    return maxId + 1;
+  });
+};
 
-app.get("/api/users", (req, res) => {
-  res.json(users);
+app.get("/api/users", (request, response) => {
+  User.find({}).then((users) => {
+    request.json(users);
+  });
 });
 
-app.get("/api/users/:id", (request, response) => {
-  const id = Number(request.params.id);
-  const user = users.find((user) => user.id === id);
+app.post("/api/users", (request, response) => {
+  const body = request.body;
 
-  if (user) {
-    response.json(user);
-  } else {
-    response.status(404).end();
+  if (body.name === undefined) {
+    return response.status(400).json({ error: "name missing" });
   }
+
+  const user = new User({
+    id: generateId(),
+    name: body.name,
+    wins: 0,
+    losses: 0,
+    ties: 0,
+  });
+
+  user.save().then((savedUser) => {
+    response.json(savedUser);
+  });
 });
 
 app.get("/api/leaderboard", (request, response) => {
-  const leaderboard = users.slice();
-  leaderboard.sort((a, b) => b.wins - a.wins);
-
-  response.json(leaderboard);
+  User.find({}).then((users) => {
+    users.sort((a, b) => b.wins - a.wins);
+    response.json(users.slice(0, 8));
+  });
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
