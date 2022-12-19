@@ -1,22 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import AuthContext from "./AuthContext";
 import LoginPage from "./LoginPage";
+import axios from "axios";
 
 const Leaderboard = () => {
   const { auth } = useContext(AuthContext);
+  const [leaderboard, setLeaderboard] = useState([]);
 
-  const data = [
-    ["bao", 10],
-    ["bao", 10],
-    ["bao", 10],
-    ["bao", 10],
-    ["bao", 10],
-    ["bao", 10],
-    ["bao", 10],
-    ["bao", 10],
-    ["bao", 10],
-    ["bao", 10],
-  ];
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/notes")
+      .then((res) => setLeaderboard(res.data));
+  }, []);
+
   const colors = ["#d5d5d5", "#a9a9a9"];
 
   if (auth === undefined) return <LoginPage />;
@@ -31,15 +27,15 @@ const Leaderboard = () => {
         <p style={{ width: "30vw" }}>Name:</p>
         <p style={{ width: "30vw" }}>Wins:</p>
       </div>
-      {data.map((a, i) => (
+      {leaderboard.map((user: any, i) => (
         <div
           className="cell"
           style={{
             backgroundColor: colors[i % colors.length],
           }}
         >
-          <p style={{ width: "30vw" }}>{a[0]}</p>
-          <p style={{ width: "30vw" }}>{a[1]}</p>
+          <p style={{ width: "30vw" }}>{user.name}</p>
+          <p style={{ width: "30vw" }}>{user.wins}</p>
         </div>
       ))}
     </div>
