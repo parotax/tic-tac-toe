@@ -5,14 +5,14 @@ app.use(express.json());
 
 let users = [
   {
-    id: 1,
-    wins: 5,
-    name: "y",
-  },
-  {
     id: 2,
     wins: 2,
     name: "z",
+  },
+  {
+    id: 1,
+    wins: 5,
+    name: "y",
   },
   {
     id: 3,
@@ -34,6 +34,13 @@ app.get("/api/users/:id", (request, response) => {
   } else {
     response.status(404).end();
   }
+});
+
+app.get("/api/leaderboard", (request, response) => {
+  const leaderboard = users.slice();
+  leaderboard.sort((a, b) => b.wins - a.wins);
+
+  response.json(leaderboard);
 });
 
 const PORT = 3001;

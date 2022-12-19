@@ -9,7 +9,7 @@ const Leaderboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/notes")
+      .get("http://localhost:3001/api/leaderboard")
       .then((res) => setLeaderboard(res.data));
   }, []);
 
