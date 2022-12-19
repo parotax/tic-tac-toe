@@ -9,7 +9,7 @@ const Leaderboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/leaderboard")
+      .get("https://tictactoebackend.fly.dev/api/leaderboard")
       .then((res) => setLeaderboard(res.data));
   }, []);
 
