@@ -1,6 +1,6 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 const User = require("./models/user");
 
 const app = express();
@@ -17,7 +17,17 @@ const generateId = () => {
 
 app.get("/api/users", (request, response) => {
   User.find({}).then((users) => {
-    request.json(users);
+    response.json(users);
+  });
+});
+
+app.get("/api/users/:email", (request, response) => {
+  if (request.params.email === undefined) {
+    return response.status(400).json({ error: "email missing" });
+  }
+
+  User.find({ email: request.params.email }).then((user) => {
+    response.json(user);
   });
 });
 
@@ -26,11 +36,14 @@ app.post("/api/users", (request, response) => {
 
   if (body.name === undefined) {
     return response.status(400).json({ error: "name missing" });
+  } else if (body.email === undefined) {
+    return response.status(400).json({ error: "email missing" });
   }
 
   const user = new User({
     id: generateId(),
     name: body.name,
+    email: body.email,
     wins: 0,
     losses: 0,
     ties: 0,

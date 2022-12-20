@@ -12,8 +12,8 @@ const url = `mongodb+srv://admin:${password}@cluster0.vboqbny.mongodb.net/userAp
 mongoose.connect(process.env.MONGODB_URI);
 
 const userSchema = new mongoose.Schema({
-  id: Number,
   name: String,
+  email: String,
   wins: Number,
   losses: Number,
   ties: Number,
@@ -22,8 +22,8 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 
 const user = new User({
-  id: 1,
   name: "username",
+  email: "email",
   wins: 0,
   losses: 0,
   ties: 0,

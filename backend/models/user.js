@@ -11,8 +11,8 @@ mongoose
     console.log("error connecting to MongoDB:", error.message);
   });
 const userSchema = new mongoose.Schema({
-  id: Number,
   name: String,
+  email: String,
   wins: Number,
   losses: Number,
   ties: Number,
