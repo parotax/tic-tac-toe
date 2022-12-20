@@ -1,6 +1,6 @@
 {
   "name": "tictactoebackend",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Backend for tic tac toe website",
   "main": "index.js",
   "scripts": {
