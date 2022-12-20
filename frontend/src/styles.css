@@ -71,14 +71,14 @@ header {
   flex-wrap: wrap;
   justify-content: space-around;
   background-color: black;
-  padding: 6px;
+  padding: 3px;
 }
 
 .square {
-  flex: 0 0 31%;
-  height: 31%;
+  flex: 0 0 32%;
+  height: 32%;
   background-color: #eaeaea;
-  margin-top: 7px;
+  margin-top: 4px;
   cursor: pointer;
 }
 

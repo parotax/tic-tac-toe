@@ -71,11 +71,21 @@ const Game = () => {
     <div
       style={{
         display: "flex",
-        justifyContent: "center",
+        flexDirection: "column",
+        justifyContent: "space-evenly",
         alignItems: "center",
         height: "85vh",
       }}
     >
+      <div>
+        {gameOn ? (
+          <p>Good luck!</p>
+        ) : (
+          <p onClick={() => startGame()} style={{ cursor: "pointer" }}>
+            Click to play again!
+          </p>
+        )}
+      </div>
       <div className="board">
         <Square board={board} handleTurn={handleTurn} tile={0} />
         <Square board={board} handleTurn={handleTurn} tile={1} />
