@@ -42,14 +42,17 @@ const PageWrapper = (props: any) => {
             <h6>Logged in</h6>
           )}
         </div>
-        <h6 className="header-child">Tic Tac Toe</h6>
+        <h4 className="header-child">Tic Tac Toe</h4>
         <div className="header-child">
           {location.pathname === "/" ? (
-            <Link to="leaderboard">
+            <Link
+              to="leaderboard"
+              style={{ textDecoration: "none", color: "#00ABB3" }}
+            >
               <h6>Leaderboard</h6>
             </Link>
           ) : (
-            <Link to="/">
+            <Link to="/" style={{ textDecoration: "none", color: "#00ABB3" }}>
               <h6>Home</h6>
             </Link>
           )}

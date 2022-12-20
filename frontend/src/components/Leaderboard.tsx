@@ -13,32 +13,34 @@ const Leaderboard = () => {
       .then((res) => setLeaderboard(res.data));
   }, []);
 
-  const colors = ["#d5d5d5", "#a9a9a9"];
+  const colors = ["#d5d5d5", "#EAEAEA"];
 
   if (auth === undefined) return <LoginPage />;
   return (
-    <div>
-      <div
-        className="cell"
-        style={{
-          backgroundColor: colors[1],
-        }}
-      >
-        <p style={{ width: "30vw" }}>Name:</p>
-        <p style={{ width: "30vw" }}>Wins:</p>
-      </div>
-      {leaderboard.map((user: any, i) => (
+    <div className="leaderboard-container">
+      <div>
         <div
-          className="cell"
-          key={i}
+          className="leaderboard-cell"
           style={{
-            backgroundColor: colors[i % colors.length],
+            backgroundColor: colors[1],
           }}
         >
-          <p style={{ width: "30vw" }}>{user.name}</p>
-          <p style={{ width: "30vw" }}>{user.wins}</p>
+          <p style={{ width: "50%" }}>Name:</p>
+          <p style={{ width: "50%" }}>Wins:</p>
         </div>
-      ))}
+        {leaderboard.map((user: any, i) => (
+          <div
+            className="leaderboard-cell"
+            key={i}
+            style={{
+              backgroundColor: colors[i % colors.length],
+            }}
+          >
+            <p style={{ width: "50%" }}>{user.name}</p>
+            <p style={{ width: "50%" }}>{user.wins}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

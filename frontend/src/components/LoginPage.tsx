@@ -14,7 +14,7 @@ const LoginPage = () => {
       type customJwtPayload = JwtPayload & { name: string; email: string };
       const decoded = jwtDecode<customJwtPayload>(response.credential);
       axios
-        .get(`http://localhost:8080/api/users/${decoded.email}`)
+        .get(`https://tictactoebackend.fly.dev/api/users/${decoded.email}`)
         .then((res) => {
           if (res.data.length === 0) {
             axios.post("https://tictactoebackend.fly.dev/api/users", {
@@ -32,7 +32,7 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
-      <p>Login via google below</p>
+      <p>Login to view leaderboard</p>
       <GoogleLogin onSuccess={onSuccess} onError={onError} />
     </div>
   );
