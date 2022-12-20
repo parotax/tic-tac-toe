@@ -53,11 +53,17 @@ const Game = () => {
 
   const updateStats = (winner: string) => {
     if (winner === "Computer") {
-      axios.post("http://localhost:8080/api/users/lukituubi@gmail.com/losses");
+      axios.post(
+        "https://tictactoebackend.fly.dev/api/users/lukituubi@gmail.com/losses"
+      );
     } else if (winner === "Player") {
-      axios.post("http://localhost:8080/api/users/lukituubi@gmail.com/wins");
+      axios.post(
+        "https://tictactoebackend.fly.dev/api/users/lukituubi@gmail.com/wins"
+      );
     } else if (winner === "Tie") {
-      axios.post("http://localhost:8080/api/users/lukituubi@gmail.com/ties");
+      axios.post(
+        "https://tictactoebackend.fly.dev/api/users/lukituubi@gmail.com/ties"
+      );
     }
   };
 
