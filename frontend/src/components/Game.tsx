@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import ComputerLogic from "./ComputerLogic";
 import CheckWin from "./CheckWin";
 import Square from "./Square";
@@ -23,6 +24,7 @@ const Game = () => {
     forceUpdate();
     if (winner === false) return false;
     setGameOn(false);
+    updateStats(winner);
     return true;
   };
 
@@ -47,6 +49,16 @@ const Game = () => {
       [0, 0, 0],
       [0, 0, 0],
     ]);
+  };
+
+  const updateStats = (winner: string) => {
+    if (winner === "Computer") {
+      axios.post("http://localhost:8080/api/users/lukituubi@gmail.com/losses");
+    } else if (winner === "Player") {
+      axios.post("http://localhost:8080/api/users/lukituubi@gmail.com/wins");
+    } else if (winner === "Tie") {
+      axios.post("http://localhost:8080/api/users/lukituubi@gmail.com/ties");
+    }
   };
 
   return (

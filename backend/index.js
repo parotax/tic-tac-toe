@@ -7,14 +7,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const generateId = () => {
-  User.find({}).then((users) => {
-    const maxId = Math.max(...users.map((user) => user.id));
-    if (users.length === 0) return 1;
-    return maxId + 1;
-  });
-};
-
 app.get("/api/users", (request, response) => {
   User.find({}).then((users) => {
     response.json(users);
@@ -31,6 +23,25 @@ app.get("/api/users/:email", (request, response) => {
   });
 });
 
+app.post("/api/users/:email/:type", (request, response) => {
+  if (request.params.email === undefined) {
+    return response.status(400).json({ error: "email missing" });
+  } else if (request.params.type === undefined) {
+    return response.status(400).json({ error: "type missing" });
+  }
+
+  User.findOne({ email: request.params.email }).then((user) => {
+    request.newData = { [request.params.type]: user[request.params.type] + 1 };
+    User.findOneAndUpdate({ email: request.params.email }, request.newData)
+      .then(() => {
+        return response.send("Succesfully saved.");
+      })
+      .catch((err) => {
+        return response.status(500).send();
+      });
+  });
+});
+
 app.post("/api/users", (request, response) => {
   const body = request.body;
 
@@ -41,7 +52,6 @@ app.post("/api/users", (request, response) => {
   }
 
   const user = new User({
-    id: generateId(),
     name: body.name,
     email: body.email,
     wins: 0,
