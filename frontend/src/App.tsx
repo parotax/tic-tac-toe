@@ -1,5 +1,5 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import PageWrapper from "./components/PageWrapper";
 import NoPage from "./components/NoPage";
 import Game from "./components/Game";
@@ -14,7 +14,7 @@ const oAuthConf = {
 const App = () => {
   return (
     <GoogleOAuthProvider {...oAuthConf}>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<PageWrapper />}>
             <Route index element={<Game />} />
@@ -22,7 +22,7 @@ const App = () => {
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </GoogleOAuthProvider>
   );
 };
