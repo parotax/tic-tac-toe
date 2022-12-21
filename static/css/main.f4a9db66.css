@@ -1,2 +1,0 @@
-body{background-color:#fff}body,h1{margin:0}h1{font-size:min(16vh,16vw);text-align:center}p{margin:15px}header,p{font-size:xx-large}header{font-weight:bolder}.content{align-items:center;display:flex;flex-direction:column;height:100vh;justify-content:space-evenly}.board{display:flex;flex-wrap:wrap;height:min(60vh,60vw);justify-content:space-around;width:min(60vh,60vw)}.square{background-color:gray;flex:0 0 32%;height:32%}.cell{display:flex;width:60vw}
-/*# sourceMappingURL=main.f4a9db66.css.map*/
