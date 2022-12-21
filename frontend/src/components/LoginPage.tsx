@@ -13,9 +13,9 @@ const LoginPage = () => {
       setAuth(response.credential);
       type customJwtPayload = JwtPayload & { name: string; email: string };
       const decoded = jwtDecode<customJwtPayload>(response.credential);
-      AxiosInstance.get(`/api/users/${decoded.email}`).then((res) => {
+      AxiosInstance.get(`/users/${decoded.email}`).then((res) => {
         if (res.data.length === 0) {
-          AxiosInstance.post("/api/users", {
+          AxiosInstance.post("/users", {
             name: decoded.name,
             email: decoded.email,
           });
