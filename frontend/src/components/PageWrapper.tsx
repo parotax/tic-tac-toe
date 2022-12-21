@@ -1,7 +1,7 @@
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import AxiosInstance from "./AxiosInstance";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import AuthContext from "./AuthContext";
 import "../styles.css";
@@ -15,16 +15,14 @@ const PageWrapper = (props: any) => {
       setAuth(response.credential);
       type customJwtPayload = JwtPayload & { name: string; email: string };
       const decoded = jwtDecode<customJwtPayload>(response.credential);
-      axios
-        .get(`https://tictactoebackend.fly.dev/api/users/${decoded.email}`)
-        .then((res) => {
-          if (res.data.length === 0) {
-            axios.post("https://tictactoebackend.fly.dev/api/users", {
-              name: decoded.name,
-              email: decoded.email,
-            });
-          }
-        });
+      AxiosInstance.get(`/users/${decoded.email}`).then((res) => {
+        if (res.data.length === 0) {
+          AxiosInstance.post("/users", {
+            name: decoded.name,
+            email: decoded.email,
+          });
+        }
+      });
     }
   };
 

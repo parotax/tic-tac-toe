@@ -1,8 +1,10 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState, useContext } from "react";
+import AxiosInstance from "./AxiosInstance";
 import ComputerLogic from "./ComputerLogic";
 import CheckWin from "./CheckWin";
 import Square from "./Square";
+import AuthContext from "./AuthContext";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 import "../styles.css";
 
 const useForceUpdate = () => {
@@ -12,6 +14,7 @@ const useForceUpdate = () => {
 
 const Game = () => {
   const forceUpdate = useForceUpdate();
+  const { auth } = useContext(AuthContext);
   const [gameOn, setGameOn] = useState(true);
   const [board, setBoard] = useState([
     [0, 0, 0],
@@ -52,18 +55,17 @@ const Game = () => {
   };
 
   const updateStats = (winner: string) => {
-    if (winner === "Computer") {
-      axios.post(
-        "https://tictactoebackend.fly.dev/api/users/lukituubi@gmail.com/losses"
-      );
-    } else if (winner === "Player") {
-      axios.post(
-        "https://tictactoebackend.fly.dev/api/users/lukituubi@gmail.com/wins"
-      );
-    } else if (winner === "Tie") {
-      axios.post(
-        "https://tictactoebackend.fly.dev/api/users/lukituubi@gmail.com/ties"
-      );
+    if (auth !== undefined) {
+      type customJwtPayload = JwtPayload & { email: string };
+      const decoded = jwtDecode<customJwtPayload>(auth);
+      const email = decoded.email;
+      if (winner === "Computer") {
+        AxiosInstance.post(`/users/${email}/losses`);
+      } else if (winner === "Player") {
+        AxiosInstance.post(`/users/${email}/wins`);
+      } else if (winner === "Tie") {
+        AxiosInstance.post(`/users/${email}/ties`);
+      }
     }
   };
 

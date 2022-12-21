@@ -1,16 +1,14 @@
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "./AuthContext";
 import LoginPage from "./LoginPage";
-import axios from "axios";
+import AxiosInstance from "./AxiosInstance";
 
 const Leaderboard = () => {
   const { auth } = useContext(AuthContext);
   const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://tictactoebackend.fly.dev/api/leaderboard")
-      .then((res) => setLeaderboard(res.data));
+    AxiosInstance.get("/leaderboard").then((res) => setLeaderboard(res.data));
   }, []);
 
   const colors = ["#d5d5d5", "#EAEAEA"];
