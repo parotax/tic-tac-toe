@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import AxiosInstance from "./AxiosInstance";
 import ComputerLogic from "./ComputerLogic";
 import CheckWin from "./CheckWin";
 import Square from "./Square";
+import AuthContext from "./AuthContext";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 import "../styles.css";
 
 const useForceUpdate = () => {
@@ -11,6 +14,7 @@ const useForceUpdate = () => {
 
 const Game = () => {
   const forceUpdate = useForceUpdate();
+  const { auth } = useContext(AuthContext);
   const [gameOn, setGameOn] = useState(true);
   const [board, setBoard] = useState([
     [0, 0, 0],
@@ -23,6 +27,7 @@ const Game = () => {
     forceUpdate();
     if (winner === false) return false;
     setGameOn(false);
+    updateStats(winner);
     return true;
   };
 
@@ -49,15 +54,40 @@ const Game = () => {
     ]);
   };
 
+  const updateStats = (winner: string) => {
+    if (auth !== undefined) {
+      type customJwtPayload = JwtPayload & { email: string };
+      const decoded = jwtDecode<customJwtPayload>(auth);
+      const email = decoded.email;
+      if (winner === "Computer") {
+        AxiosInstance.post(`/users/${email}/losses`);
+      } else if (winner === "Player") {
+        AxiosInstance.post(`/users/${email}/wins`);
+      } else if (winner === "Tie") {
+        AxiosInstance.post(`/users/${email}/ties`);
+      }
+    }
+  };
+
   return (
     <div
       style={{
         display: "flex",
-        justifyContent: "center",
+        flexDirection: "column",
+        justifyContent: "space-evenly",
         alignItems: "center",
         height: "85vh",
       }}
     >
+      <div>
+        {gameOn ? (
+          <p>Good luck!</p>
+        ) : (
+          <p onClick={() => startGame()} style={{ cursor: "pointer" }}>
+            Click to play again!
+          </p>
+        )}
+      </div>
       <div className="board">
         <Square board={board} handleTurn={handleTurn} tile={0} />
         <Square board={board} handleTurn={handleTurn} tile={1} />

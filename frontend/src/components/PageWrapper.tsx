@@ -1,6 +1,8 @@
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
+import AxiosInstance from "./AxiosInstance";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 import AuthContext from "./AuthContext";
 import "../styles.css";
 
@@ -9,7 +11,19 @@ const PageWrapper = (props: any) => {
   const [auth, setAuth] = useState<string>();
 
   const onSuccess = (response: CredentialResponse) => {
-    if (response.credential !== undefined) setAuth(response.credential);
+    if (response.credential !== undefined) {
+      setAuth(response.credential);
+      type customJwtPayload = JwtPayload & { name: string; email: string };
+      const decoded = jwtDecode<customJwtPayload>(response.credential);
+      AxiosInstance.get(`/users/${decoded.email}`).then((res) => {
+        if (res.data.length === 0) {
+          AxiosInstance.post("/users", {
+            name: decoded.name,
+            email: decoded.email,
+          });
+        }
+      });
+    }
   };
 
   const onError = () => {
@@ -26,14 +40,17 @@ const PageWrapper = (props: any) => {
             <h6>Logged in</h6>
           )}
         </div>
-        <h6 className="header-child">Tic Tac Toe</h6>
+        <h4 className="header-child">Tic Tac Toe</h4>
         <div className="header-child">
           {location.pathname === "/" ? (
-            <Link to="leaderboard">
+            <Link
+              to="leaderboard"
+              style={{ textDecoration: "none", color: "#00ABB3" }}
+            >
               <h6>Leaderboard</h6>
             </Link>
           ) : (
-            <Link to="/">
+            <Link to="/" style={{ textDecoration: "none", color: "#00ABB3" }}>
               <h6>Home</h6>
             </Link>
           )}
