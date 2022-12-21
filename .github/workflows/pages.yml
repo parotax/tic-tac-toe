@@ -14,10 +14,11 @@ jobs:
 
       - name: Install and Build
         run: |
+          cd frontend
           yarn install --frozen-lockfile
           yarn build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: build
+          folder: frontend/build
